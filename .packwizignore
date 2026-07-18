@@ -18,3 +18,16 @@ README.md
 # in the pack zip that players download.
 branding/
 gen/
+
+# Open-source project files + dev tooling - repo scaffolding, NOT pack content.
+# Without these, `packwiz refresh` indexes them and they ship to players /
+# get synced into instances. Only mods/ and config/ are real pack content.
+.github/
+tools/
+LICENSE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+.gitignore
+.packwizignore

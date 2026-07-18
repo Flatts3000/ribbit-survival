@@ -1,54 +1,6 @@
 hash-format = "sha256"
 
 [[files]]
-file = ".github/ISSUE_TEMPLATE/bug_report.md"
-hash = "ef227978e379a0a71536b71070ba7953141e93f0ea13e48059c0a3fd810c58dd"
-
-[[files]]
-file = ".github/ISSUE_TEMPLATE/config.yml"
-hash = "f1d61c8e15fb635d6d6e1510779aeba6b701f6f0e7661c33aed8f5f927512981"
-
-[[files]]
-file = ".github/ISSUE_TEMPLATE/feature_request.md"
-hash = "00bf99dbe6901cb3439c44f8895f23d31475dbe6b0e64b7e8cd316562c63f0ad"
-
-[[files]]
-file = ".github/ISSUE_TEMPLATE/mod_suggestion.md"
-hash = "46f36ffc6aed9fdcfb3d84fe2d8b085782500e17962b667a21cc0f0f62e8a665"
-
-[[files]]
-file = ".github/PULL_REQUEST_TEMPLATE.md"
-hash = "c0e4664e5c46b568dc62a2b9a26d5ca1f599bf7aae0ec92e21dcd6f7fa96e501"
-
-[[files]]
-file = ".github/dependabot.yml"
-hash = "356cf49ad78b0cb01ce2ad480226c92e99e82eba47ac9f3f0c91d102305c23db"
-
-[[files]]
-file = ".github/workflows/release.yml"
-hash = "89a6ca455a9f39cd762f4a347be8c85be9922758a2f2caad14beffb783d98ab8"
-
-[[files]]
-file = "CHANGELOG.md"
-hash = "cdb336fca94d4bd6e511a09fee403362ff58924d72a7700bfd068c97b85ef06f"
-
-[[files]]
-file = "CODE_OF_CONDUCT.md"
-hash = "e9a5797ee067e326835b25d4e8dd410c84e97f287b8f95f094d4fb5ea580d501"
-
-[[files]]
-file = "CONTRIBUTING.md"
-hash = "e31c942e7ab650a760565c0bee9b8048c6fcd4a1ed77673e9b7608960417d26b"
-
-[[files]]
-file = "LICENSE"
-hash = "4783e809c314b337e7c738f9de0178867ce9ef9096fa783ee3f57c9a5f8fcd79"
-
-[[files]]
-file = "SECURITY.md"
-hash = "dfd1abb3c73eadc750f8ce63e661c5f516dd00789884db173b35c7fee3d07eca"
-
-[[files]]
 file = "config/productivefrogs-common.toml"
 hash = "aebc2025fdd35c143e74a592fb39288ade2ababb1fba58b10d0b62998c721d3d"
 
