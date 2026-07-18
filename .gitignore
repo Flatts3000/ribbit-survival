@@ -1,0 +1,17 @@
+# packwiz / build outputs
+*.zip
+*.mrpack
+.packwiz-installer.jar
+packwiz-installer-bootstrap.jar
+
+# local test instance (if you point a launcher/server at this repo)
+run/
+mods/*.jar
+config-local/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
