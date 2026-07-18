@@ -30,7 +30,7 @@ hash = "89a6ca455a9f39cd762f4a347be8c85be9922758a2f2caad14beffb783d98ab8"
 
 [[files]]
 file = "CHANGELOG.md"
-hash = "3f39ca0f280e674314aa7040d0426099f6f8324e8544abfd5ee7f6c79144b5ac"
+hash = "cdb336fca94d4bd6e511a09fee403362ff58924d72a7700bfd068c97b85ef06f"
 
 [[files]]
 file = "CODE_OF_CONDUCT.md"
@@ -84,7 +84,7 @@ metafile = true
 
 [[files]]
 file = "mods/balm.pw.toml"
-hash = "921b473124bc3583030f189114b893e78f93721069ccff39918f42b95b936737"
+hash = "720dc91e796bd6405ce3df53998990493f09172a500510850afc22524989e094"
 metafile = true
 
 [[files]]
@@ -269,7 +269,7 @@ metafile = true
 
 [[files]]
 file = "mods/modernfix.pw.toml"
-hash = "063d8de9505aa187180ddb1028cabb8262e2fb640e9f26f54f837f1b398dda8d"
+hash = "f77005f5ab1ac9093bc780b3eeeece73b7f68acb39ca3edc1bbd16621a879f8d"
 metafile = true
 
 [[files]]

@@ -11,6 +11,7 @@ it is **alpha**: content, balance, and the mod list can change between releases.
 
 ### Changed
 - **Productive Frogs bumped to `2.0.0-alpha.3`** ("Field Guide").
+- ModernFix (`5.27.20`) and Balm (`26.1.2.10`) bumped to their latest 26.1.2 builds.
 
 ### Added
 - **Modonomicon** (`2.1.1`) - the guide engine PF's new field guide runs on.
