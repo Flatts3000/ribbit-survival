@@ -1,20 +1,8 @@
 hash-format = "sha256"
 
 [[files]]
-file = ".ruff_cache/CACHEDIR.TAG"
-hash = "5953156d7e0c564a427251316eaf26f8870e6483ae2197f916b630e4f93e31ae"
-
-[[files]]
-file = "README.md"
-hash = "3f3e0bd16f9d00320886a801293dc16778f0a8750bbc48112bbcbeae74434e4f"
-
-[[files]]
 file = "config/productivefrogs-common.toml"
 hash = "29ad7ee592399dfe4411db666827c3bed8ccec4f362965173ce3aa6bba07f2ea"
-
-[[files]]
-file = "docs/handover.md"
-hash = "0e3c6f433696da542298a1b95f0bdaef610aa4ab72b04a08a9fe013300e10f13"
 
 [[files]]
 file = "mods/apotheosis.pw.toml"
@@ -63,7 +51,7 @@ metafile = true
 
 [[files]]
 file = "mods/cloth-config.pw.toml"
-hash = "7c258846d69d70699d01ece8be13df4bfa70da6da9059eb1c653ade05b3ed7dd"
+hash = "d0fae735921d88b89506a481b8368899b0f694a31188d7447428e472e476184d"
 metafile = true
 
 [[files]]
@@ -163,7 +151,7 @@ metafile = true
 
 [[files]]
 file = "mods/guideme.pw.toml"
-hash = "5612e93a633e577362cb18efd27de0ea3a51e6444a96475c9aec36e3c1cba83f"
+hash = "8291833f453296384c8000f604a9d7bbe9d39109acb26dd45bdf4ac0fbe8c070"
 metafile = true
 
 [[files]]
@@ -287,8 +275,8 @@ hash = "1b874d771761b820a4625b7ba687226592e1f3483a8c219708d585ad7fe7b73d"
 metafile = true
 
 [[files]]
-file = "mods/powah.pw.toml"
-hash = "be916d4ef58b761a7fbab66d9392ed4824860a4a4591266cf6815cd4b5194881"
+file = "mods/powah-rearchitected.pw.toml"
+hash = "d362035cf6b4e6cb522aa3f1e874666163d612c2df5b98ce29109c42b928fcdc"
 metafile = true
 
 [[files]]
@@ -398,10 +386,10 @@ metafile = true
 
 [[files]]
 file = "mods/yungs-api.pw.toml"
-hash = "4e31803a4bb0c727deb1475759f6090b24a8311fbd3b1becc77561977a015dc1"
+hash = "0c140af85f04b2f6b92e75659d3d2f955e62a04567c91818a134db5d085214d8"
 metafile = true
 
 [[files]]
-file = "mods/yungs-better-mineshafts.pw.toml"
-hash = "9ba79295facf73afecf68b735d08e0a7057c07638d3adf184114ca13694fd03e"
+file = "mods/yungs-better-mineshafts-forge.pw.toml"
+hash = "108a98db815d0e2f486b1c6be6f546485fef10ff2d49796f00c8a9e77a6a8d88"
 metafile = true

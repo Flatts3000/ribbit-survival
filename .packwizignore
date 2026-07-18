@@ -1,0 +1,12 @@
+# Files tracked in the repo but excluded from the distributed pack.
+# packwiz uses gitignore syntax here, relative to the pack root.
+
+# Export output directory (the .zip we build for CurseForge)
+build/
+
+# Python lint cache (dev-only cruft, no place in a Minecraft pack)
+.ruff_cache/
+
+# Internal dev notes, not for players
+docs/
+README.md
