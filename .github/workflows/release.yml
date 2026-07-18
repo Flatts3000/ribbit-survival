@@ -1,0 +1,137 @@
+name: Release
+
+# Tag-driven release. Cut one with:
+#   (bump pack.toml version + update CHANGELOG.md, commit, then)
+#   git tag vX.Y.Z && git push origin vX.Y.Z
+#
+# This builds the CurseForge export, creates a GitHub release with the zip and the
+# matching CHANGELOG section, and (once configured) uploads the file to CurseForge.
+#
+# CurseForge upload is OPT-IN and requires two things to be set:
+#   - repo secret CF_API_TOKEN  (the CurseForge *upload* token)
+#   - the CF_PROJECT_ID + CF_GAME_VERSIONS env below, filled in after the CF
+#     modpack project exists (see the TODOs).
+# If either is missing, the CurseForge step is skipped with a warning and the
+# GitHub release still ships (upload the asset manually via the CF web UI).
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write # create GitHub releases
+
+env:
+  # TODO: set after the CurseForge modpack project is created (Files/API need it).
+  CF_PROJECT_ID: ""
+  # TODO: modpack-class game-version IDs for MC 26.1.2 + NeoForge. Look these up
+  # from https://minecraft.curseforge.com/api/game/versions with the upload token
+  # (they are the MODPACK-class ids, NOT the mod-class ones, and a Java-version id
+  # must NOT be sent for modpacks). Format: "[<mcId>, <neoforgeId>]".
+  CF_GAME_VERSIONS: ""
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Resolve version from tag
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+          cache: false # no go.sum in this repo (packwiz is `go install`-ed); skip the cache restore
+
+      - name: Install packwiz
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Guard - pack.toml version matches the tag
+        run: |
+          pack_ver=$(grep -E '^version *= *' pack.toml | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
+          if [ "$pack_ver" != "${{ steps.ver.outputs.version }}" ]; then
+            echo "::error::pack.toml version ($pack_ver) does not match tag (${{ steps.ver.outputs.version }}). Bump pack.toml before tagging."
+            exit 1
+          fi
+
+      - name: Build CurseForge export
+        id: build
+        run: |
+          packwiz refresh
+          packwiz curseforge export
+          zip=$(ls *.zip)
+          echo "zip_path=$zip" >> "$GITHUB_OUTPUT"
+          echo "built: $zip"
+
+      - name: Extract changelog section and build CF metadata
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+          CF_GAME_VERSIONS: ${{ env.CF_GAME_VERSIONS }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          version = os.environ["VERSION"]
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          m = re.search(r"## \[" + re.escape(version) + r"\][^\n]*\n(.*?)(?=\n## \[)", text, re.S)
+          cl = (m.group(1).strip() if m else f"Release {version}")
+          open("release_notes.md", "w", encoding="utf-8").write(cl)
+          # v0.x -> beta on CurseForge; 1.0.0+ -> release.
+          release_type = "beta" if version.startswith("0.") else "release"
+          meta = {
+              "changelog": cl,
+              "changelogType": "markdown",
+              "displayName": f"Ribbit Survival {version}",
+              "releaseType": release_type,
+          }
+          gv = os.environ.get("CF_GAME_VERSIONS", "").strip()
+          if gv:
+              meta["gameVersions"] = json.loads(gv)
+          json.dump(meta, open("cf_meta.json", "w", encoding="utf-8"))
+          print("release_type:", release_type, "| changelog chars:", len(cl))
+          PY
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          case "${{ steps.ver.outputs.version }}" in
+            0.*|*-*) prerelease="--prerelease" ;;
+          esac
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --notes-file release_notes.md \
+            $prerelease \
+            "${{ steps.build.outputs.zip_path }}"
+
+      - name: Upload to CurseForge
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_PROJECT_ID: ${{ env.CF_PROJECT_ID }}
+          CF_GAME_VERSIONS: ${{ env.CF_GAME_VERSIONS }}
+        run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_PROJECT_ID" ] || [ -z "$CF_GAME_VERSIONS" ]; then
+            echo "::warning::CurseForge upload not configured (need CF_API_TOKEN secret + CF_PROJECT_ID + CF_GAME_VERSIONS env). The GitHub release shipped; upload the asset manually via the CF web UI."
+            exit 0
+          fi
+          resp=$(curl -s -w '\n%{http_code}' -X POST \
+            -H "X-Api-Token: $CF_API_TOKEN" \
+            -F "metadata=<cf_meta.json" \
+            -F "file=@${{ steps.build.outputs.zip_path }}" \
+            "https://minecraft.curseforge.com/api/projects/${CF_PROJECT_ID}/upload-file")
+          body=$(printf '%s' "$resp" | sed '$d')
+          code=$(printf '%s' "$resp" | tail -n1)
+          echo "HTTP $code: $body"
+          if [ "$code" != "200" ]; then
+            echo "::error::CurseForge upload failed (HTTP $code): $body"
+            exit 1
+          fi
+          fileid=$(printf '%s' "$body" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])")
+          url="https://www.curseforge.com/minecraft/modpacks/ribbit-survival/files/$fileid"
+          echo "CurseForge file: $url"
+          echo "### CurseForge file [$fileid]($url)" >> "$GITHUB_STEP_SUMMARY"

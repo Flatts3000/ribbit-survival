@@ -9,6 +9,14 @@ run/
 mods/*.jar
 config-local/
 
+# Logo/branding working files (deliverables in branding/ are committed;
+# gen/ holds source renders + the compose script, kept local)
+gen/
+bb-*.png
+
+# Playwright MCP browser-automation artifacts
+.playwright-mcp/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
