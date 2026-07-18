@@ -23,8 +23,8 @@ permissions:
   contents: write # create GitHub releases
 
 env:
-  # TODO: set after the CurseForge modpack project is created (Files/API need it).
-  CF_PROJECT_ID: ""
+  # CurseForge modpack project: https://www.curseforge.com/minecraft/modpacks/ribbit-survival
+  CF_PROJECT_ID: "1615242"
   # TODO: modpack-class game-version IDs for MC 26.1.2 + NeoForge. Look these up
   # from https://minecraft.curseforge.com/api/game/versions with the upload token
   # (they are the MODPACK-class ids, NOT the mod-class ones, and a Java-version id
