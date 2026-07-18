@@ -12,9 +12,12 @@ dependency.
 
 ## Status
 
-Early scaffold. Pack metadata and the repo exist; the mod list is designed and availability-verified
-but not yet added. See [`docs/handover.md`](docs/handover.md) for the full plan, the locked v0.1 mod
-list, and the exact next steps.
+**v0.1 built** (branch `feat/v0.1-mod-list`). **78 mods** pinned (73 CurseForge + 5 Modrinth-sourced
+LGPL mods bundled on export), Productive Frogs pinned to the `26.1.2` alpha, and a trimmed PF config
+override with the **Equivalence (EE) lane enabled**. `packwiz curseforge export` builds clean. Not yet
+smoke-tested in a live NeoForge instance and not merged to `main`. See
+[`docs/handover.md`](docs/handover.md) section 12 for the full build result, what was deferred, and
+the remaining steps.
 
 ## Layout
 

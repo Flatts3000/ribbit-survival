@@ -1,0 +1,13 @@
+name = "Balm"
+filename = "balm-neoforge-26.1.2-26.1.2.9.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "3d3f690990d3b3c46423b4810eb1e820168c22f7"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8424855
+project-id = 531761

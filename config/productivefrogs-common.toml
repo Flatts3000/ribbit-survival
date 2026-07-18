@@ -1,0 +1,27 @@
+# Ribbit Survival - Productive Frogs config override (packwiz override).
+#
+# TRIMMED ON PURPOSE. Only keys we intentionally change from PF's shipping
+# defaults live here. Every other key is omitted so PF's own defaults flow
+# through (and future PF default improvements are not frozen out). NeoForge
+# fills any missing key from the mod's ConfigSpec on first load and rewrites the
+# full file into the instance - this partial file is the seed, not the whole config.
+#
+# References: docs/handover.md section 8; ../productive-frogs/docs/equivalence_lane.md.
+
+[equivalence]
+	# FEATURED. The post-capstone, RF-powered transmutation lane is ON for this
+	# pack. PF ships it FALSE (opt-in, fail-closed). Enabling it here is a
+	# deliberate pack decision (2026-07-17): Ribbit Survival powers the EE lane
+	# in-world with Powah RF, which feeds PF's Alembic + Distiller through the
+	# standard Capabilities.Energy.BLOCK. Turning this on makes the whole lane
+	# live (Alembic/Distiller craftable + processing, the Princess's Kiss primes
+	# Midas eggs, Mimic Milk/Slimes spawn). Takes effect on world load.
+	enabled = true
+
+[spawnery]
+	# OFF. Ribbit Survival is a NORMAL world - swamps already provide frogspawn,
+	# so the skyblock-bootstrap Spawnery stays disabled. This matches PF's own
+	# default; it is asserted here for pack identity and to stay off even if PF
+	# ever flips the shipping default. (Uncraftable + hidden from JEI/creative;
+	# a placed block via /give still functions.)
+	enabled = false
