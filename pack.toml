@@ -1,12 +1,12 @@
 name = "Ribbit Survival"
 author = "Flatts3000"
-version = "0.1.0"
+version = "0.2.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "66021b69d9e2c593125b957b4441204211df436ab3f788c200f102683580299f"
+hash = "39c2c089e90b8620f896b0b83248f60094c72e8d74601e9251b201a53a39f12e"
 
 [versions]
 minecraft = "26.1.2"
