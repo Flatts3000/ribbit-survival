@@ -102,6 +102,34 @@ CF slug differs. `packwiz cf add` prompts to resolve required dependencies; acce
 GuideME, Cloth Config, YUNG's API) is not on 26.1.2 when you go to add it, that mod drops from v0.1;
 note it and move on rather than blocking the whole pack.
 
+## 5b. QoL mods harvested from Sky Frogs (user request, 2026-07-17)
+
+The user wants "as many QoL mods that are in Sky Frogs that have updated to 26.x." Sky Frogs is the
+sibling pack at `F:\minecraft-repos\sky-frogs\pack\` (155 mods, MC 1.21.1). Its QoL subset was checked
+against the Modrinth NeoForge API for 26.x. Add all of tier A; verify tier B at add-time (they are
+CurseForge-primary, so `packwiz cf add` is the real test); skip tier C.
+
+**Tier A - confirmed 26.1.2, ADD these (21):**
+`appleskin`, `clumps`, `controlling`, `crafting-tweaks`, `inventory-essentials`, `mouse-tweaks`,
+`trashslot`, `searchables`, `toast-control`, `fastfurnace`, `fastsuite`, `fastworkbench`,
+`simple-magnets`, `item-collectors`, `gravestone-mod`, `construction-sticks`, `cooking-for-blockheads`,
+`iron-furnaces`, `trash-cans`, `simple-backups`, `framedblocks`, `connected-glass`.
+
+**Tier B - not on Modrinth, verify on CurseForge via `packwiz cf add` (add if a 26.1.2 file exists):**
+`jade-addons`, `extreme-sound-muffler`, `just-enough-professions` (JEP), `just-enough-resources` (JER),
+`ftb-ultimine`, `ftb-chunks`, `spice-of-life-carrot-edition`, `mob-grinding-utils`, `building-gadgets`.
+(JEP/JER/jade-addons are high value - they extend the JEI/Jade experience PF already integrates with.)
+
+**Tier C - NO 26.x build yet, DEFER (re-check on later pack updates):**
+`polymorph`, `configured`, `more-overlays-updated`, `fast-leaf-decay`, `inventory-tweaks-refoxed`,
+`torchmaster`, `not-enough-wands`. (Content mods `chipped` and `supplementaries` are also still absent,
+per section 4.)
+
+Notes: `searchables` and `sophisticated-core` and similar are libraries some of the above need - accept
+`packwiz cf add` dependency prompts. Skyblock-only Sky Frogs mods (`skyblock-builder`, `ex-deorum`,
+`cobblegen-galore`, `forgiving-void`, `sky-guis`, the FTB quests/teams/ranks stack) are intentionally
+NOT carried over - Ribbit Survival is a normal world.
+
 ## 6. Pinning Productive Frogs (the important one)
 
 - CurseForge project **`1552728`**. It ships as **releaseType `alpha`**, game version `26.1.2`, Java 25.
@@ -170,8 +198,9 @@ keys.
 1. `cd F:\minecraft-repos\ribbit-survival`
 2. Add PF first and confirm the pin resolves to a **26.1.2 alpha** file (section 6):
    `packwiz cf add productive-frogs` (or by project id `1552728`).
-3. Add the rest of section 5 with `packwiz cf add <name>`, accepting dependency prompts. Batch it;
-   note any mod/dep that has no 26.1.2 file and defer it.
+3. Add the rest of section 5 (tech spine, worldgen, perf, flavor) AND the QoL mods in section 5b with
+   `packwiz cf add <name>`, accepting dependency prompts. Add tier A of 5b outright; try tier B and keep
+   whatever has a 26.1.2 CF file; skip tier C. Note any mod/dep with no 26.1.2 file and defer it.
 4. `packwiz refresh`, then sanity-check `index.toml` lists everything.
 5. Generate + trim the PF config override into `config/` (section 8).
 6. Smoke test: point a NeoForge 26.1.2 instance (or `packwiz curseforge export` -> import into a
