@@ -7,9 +7,10 @@ it is **alpha**: content, balance, and the mod list can change between releases.
 
 ## [Unreleased]
 
-## [0.1.0] - alpha (unreleased)
+## [0.1.0] - 2026-07-18
 
-First build of the pack. Not yet published to CurseForge.
+First build of the pack. Uploaded to CurseForge as an **alpha** release (file `8458262`);
+live once first-file moderation clears.
 
 ### Added
 - **Productive Frogs** as the marquee content mod (CF project `1552728`), pinned

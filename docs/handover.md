@@ -240,11 +240,12 @@ rest from the ConfigSpec on first load. Keys set:
 - `[spawnery] enabled = false` - normal-world identity (matches PF default; asserted for safety).
 
 ### Sourcing (matters for the CF export)
-- **73 mods CF-sourced** (in the export manifest).
-- **5 mods Modrinth-sourced**, all **LGPL-3.0** so the CF export bundles them into `overrides/mods/`
-  cleanly: **Powah** (7.0.4-alpha), **YUNG's Better Mineshafts**, **YUNG's API**, **GuideME**,
-  **Cloth Config**. These have no 26.1.x file on CurseForge yet; re-source from CF (`packwiz cf add`)
-  if/when they publish one, to move them into the manifest.
+- **All 78 mods CF-sourced** - the export manifest references every mod by project/file id, with an
+  **empty `overrides/mods/`** and no redistribution risk at CF moderation.
+- The 5 that were originally Modrinth-sourced (**Powah** 7.0.4-alpha, **YUNG's Better Mineshafts**,
+  **YUNG's API**, **GuideME**, **Cloth Config**) were **re-sourced from CurseForge on 2026-07-18** once
+  they had 26.1.2 CF builds. Filenames matched the tested build exactly (no version drift). Keep new
+  mods CF-sourced (`packwiz cf add`) so this stays true.
 
 ### Added beyond the original plan (Sky Frogs sweep, 2026-07-17)
 - **Tech/automation:** Pipez, Modular Routers, Iron Jetpacks (Powah-charged), Just Dire Things,
@@ -278,9 +279,24 @@ rest from the ConfigSpec on first load. Keys set:
    the pack is cleanly locked to 26.1.2 with no version-widening needed. If you later need to accept a
    patch-line version, use `packwiz settings av -a 26.1` (separate entries), not a joined string.
 
-### Still TODO (unchanged from section 10, steps 6-7)
-- **In-world smoke test** (not done here - no NeoForge runtime in the build session): import the
-  export zip into a launcher, confirm it loads, PF is present, and the **Powah -> EE-lane** and AE2
-  hooks behave with `equivalence.enabled = true`.
-- **Do NOT create/upload the CurseForge project** until the smoke test passes - that stays a user
-  decision. Branch `feat/v0.1-mod-list` holds the build; not yet merged to `main`.
+### Shipped (2026-07-18)
+The remaining steps from section 10 are done:
+- **In-world smoke test passed** (maintainer confirmed the pack loads and plays before release).
+- **Merged to `main`** via PR - `feat/v0.1-mod-list` is gone; `main` holds the pack, logo, and OSS scaffold.
+- **CurseForge project created and v0.1 uploaded** (see Distribution below).
+
+### Distribution (as of 2026-07-18)
+- **CurseForge project id:** `1615242`; expected slug `ribbit-survival`.
+- **v0.1.0 file:** `8458262`, uploaded via the CF upload API as **releaseType `alpha`**, pending
+  first-file moderation (~48-72h). Alpha visibility only until a `Release`-type file ships.
+- **GitHub repo:** https://github.com/Flatts3000/ribbit-survival - public, MIT, `main` protected
+  (squash-only, force-push/deletion blocked, conversation-resolution required).
+- **Automated releases (v0.2.0+):** push a `vX.Y.Z` tag -> `.github/workflows/release.yml` builds the
+  CF export, cuts a GitHub release, and uploads to CurseForge. Wired constants: `CF_PROJECT_ID=1615242`,
+  `CF_GAME_VERSIONS=[16082, 10150]` (16082 = MC 26.1.2 in the "Minecraft 26.1" type = modpack class;
+  10150 = NeoForge modloader). Secret `CF_API_TOKEN` is set (the CF upload token, same as
+  `productive-frogs/.env` `CURSEFORGE_API_KEY`). Do NOT also tag a version you uploaded manually - it
+  would create a duplicate CF file.
+- **Pack logo pipeline:** reused the Sky Frogs warm frog + a Minecraft Title Generator wordmark,
+  composited by `gen/_compose_logo.py`. `gen/` is gitignored working files; deliverables live in
+  `branding/`.
