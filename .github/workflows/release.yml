@@ -79,8 +79,9 @@ jobs:
           m = re.search(r"## \[" + re.escape(version) + r"\][^\n]*\n(.*?)(?=\n## \[)", text, re.S)
           cl = (m.group(1).strip() if m else f"Release {version}")
           open("release_notes.md", "w", encoding="utf-8").write(cl)
-          # v0.x -> beta on CurseForge; 1.0.0+ -> release.
-          release_type = "beta" if version.startswith("0.") else "release"
+          # v0.x is the pre-1.0 alpha line -> alpha on CurseForge; 1.0.0+ -> release.
+          # (Bump this to beta/release when the pack graduates channels.)
+          release_type = "alpha" if version.startswith("0.") else "release"
           meta = {
               "changelog": cl,
               "changelogType": "markdown",
