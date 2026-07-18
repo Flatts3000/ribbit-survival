@@ -7,7 +7,7 @@ it is **alpha**: content, balance, and the mod list can change between releases.
 
 ## [Unreleased]
 
-## [0.2.0] - unreleased
+## [0.2.0] - 2026-07-18
 
 ### Changed
 - **Productive Frogs bumped to `2.0.0-alpha.3`** ("Field Guide").
