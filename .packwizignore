@@ -4,9 +4,17 @@
 # Export output directory (the .zip we build for CurseForge)
 build/
 
+# Browser-automation + branding working artifacts
+.playwright-mcp/
+
 # Python lint cache (dev-only cruft, no place in a Minecraft pack)
 .ruff_cache/
 
 # Internal dev notes, not for players
 docs/
 README.md
+
+# Logo/branding assets - uploaded to the CurseForge dashboard, not bundled
+# in the pack zip that players download.
+branding/
+gen/
