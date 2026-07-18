@@ -25,11 +25,10 @@ permissions:
 env:
   # CurseForge modpack project: https://www.curseforge.com/minecraft/modpacks/ribbit-survival
   CF_PROJECT_ID: "1615242"
-  # TODO: modpack-class game-version IDs for MC 26.1.2 + NeoForge. Look these up
-  # from https://minecraft.curseforge.com/api/game/versions with the upload token
-  # (they are the MODPACK-class ids, NOT the mod-class ones, and a Java-version id
-  # must NOT be sent for modpacks). Format: "[<mcId>, <neoforgeId>]".
-  CF_GAME_VERSIONS: ""
+  # Modpack-class game-version IDs: 16082 = MC 26.1.2 (from the "Minecraft 26.1"
+  # version type, NOT the "Addons"/mod-class 26.1.2 which is 16130), 10150 = the
+  # "NeoForge" modloader. A Java-version id must NOT be sent for modpacks.
+  CF_GAME_VERSIONS: "[16082, 10150]"
 
 jobs:
   release:
