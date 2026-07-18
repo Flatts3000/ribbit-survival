@@ -1,0 +1,13 @@
+name = "Productive Frogs"
+filename = "productivefrogs-26.1.2-2.0.0-alpha.2.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "d50d78a5c0d80d14a5a1d8ed7ac8ffeff65aa1f4"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8402058
+project-id = 1552728

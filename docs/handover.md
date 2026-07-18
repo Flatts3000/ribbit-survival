@@ -215,3 +215,72 @@ keys.
 - packwiz docs: https://packwiz.infra.link/
 - PF on CurseForge: project `1552728`.
 - Availability method: Modrinth v2 API, NeoForge loader, game version `26.1.2` (rerun before locking).
+
+## 12. v0.1 build result (EXECUTED 2026-07-17, branch `feat/v0.1-mod-list`)
+
+The pack was built. This section records what actually landed so the next session works from the
+real state, not the plan. **78 mods total** (73 in the CurseForge manifest + 5 Modrinth-sourced
+externals), plus one PF config override. `packwiz curseforge export` succeeds clean (exit 0).
+
+### Decisions locked at build time
+- **EE lane is ON** (user decision). Shipped via the config override, not left at PF's opt-in default.
+- **Extra content added beyond sections 5/5b** from a full-Sky-Frogs sweep (user-approved buckets):
+  Tech/automation, Apotheosis RPG, and QoL/farming. The **decoration suite was offered and declined**
+  (do not re-propose the 8 extra Macaw's mods / rechiseled / glassential unless the user asks).
+
+### PF pin (confirmed)
+`productivefrogs-26.1.2-2.0.0-alpha.2.jar`, CF project `1552728`, file-id `8402058`. `packwiz cf add`
+resolved the alpha automatically - no explicit file-id or channel override was needed.
+
+### Config override (`config/productivefrogs-common.toml`)
+Trimmed to only the two keys we intentionally change from PF's shipping defaults; NeoForge fills the
+rest from the ConfigSpec on first load. Keys set:
+- `[equivalence] enabled = true` - **the featured EE lane** (PF default is FALSE/opt-in). Powered
+  in-world by Powah RF -> PF Alembic/Distiller via `Capabilities.Energy.BLOCK`.
+- `[spawnery] enabled = false` - normal-world identity (matches PF default; asserted for safety).
+
+### Sourcing (matters for the CF export)
+- **73 mods CF-sourced** (in the export manifest).
+- **5 mods Modrinth-sourced**, all **LGPL-3.0** so the CF export bundles them into `overrides/mods/`
+  cleanly: **Powah** (7.0.4-alpha), **YUNG's Better Mineshafts**, **YUNG's API**, **GuideME**,
+  **Cloth Config**. These have no 26.1.x file on CurseForge yet; re-source from CF (`packwiz cf add`)
+  if/when they publish one, to move them into the manifest.
+
+### Added beyond the original plan (Sky Frogs sweep, 2026-07-17)
+- **Tech/automation:** Pipez, Modular Routers, Iron Jetpacks (Powah-charged), Just Dire Things,
+  Extended Crafting.
+- **Apotheosis RPG:** Apotheosis, Apothic Attributes, Apothic Enchanting, Apothic Spawners (MIT; a
+  deliberate content layer - high-value scarce 26.1 content).
+- **QoL/farming:** OpenBlocks Elevator (resolves to the CF ElevatorID continuation), Dark Utilities,
+  Crafting on a Stick, More Dragon Eggs, Squat Grow.
+- **Auto-deps pulled:** Bookshelf, Cucumber, Nanite Library, Patchouli, Pig Pen Cipher, Runelic,
+  Nyctography (the last three are the Darkhax family required by Dark Utilities), plus Placebo for
+  Apotheosis. All required deps, all real 26.1.2 files.
+
+### Deferred - no 26.1.x CF build AND/OR not bundle-licensed (re-check on later updates)
+- From the original plan: **entityculling** (tr7zw protective license, no CF 26.1.x - client-only
+  perf, already covered by sodium/lithium/ferritecore/modernfix), **crafting-tweaks** (ARR, no CF
+  26.1.x), **jade-addons** (ARR on Modrinth, no CF 26.1.x - re-add from CF when it ships one, it's
+  high value), **mob-grinding-utils** (only an ARR fork exists), **ftb-ultimine**, **ftb-chunks**
+  (no 26.1.x build).
+- From the sweep: **botany-pots**, **botany-trees**, **functional-storage**, **time-in-a-bottle**,
+  **almost-unified** (on Modrinth but no 26.1.x NeoForge build), **flux-networks** (no 26.1.x CF
+  build - would pair well with Powah, worth re-checking), **mamas-herbs-and-harvest** (only tags
+  26.1/26.1.1, no 26.1.2 - dropped).
+
+### Two bugs found + fixed during the build
+1. **YUNG's Better Mineshafts shipped `side = "server"`** (packwiz set it from Modrinth's
+   `client_side: unsupported`). That dropped it from the client-focused CF export, so singleplayer
+   worlds would generate no mineshafts. Fixed to `side = "both"` in its `.pw.toml`. **Watch for this
+   on any Modrinth-sourced worldgen/structure mod** - verify it survives the export.
+2. **`pack.toml` had a malformed `acceptable-game-versions = ["26.1,26.1.0,26.1.1"]`** (one
+   comma-joined string, matched nothing). Removed it. Every mod resolved on a real `26.1.2` tag, so
+   the pack is cleanly locked to 26.1.2 with no version-widening needed. If you later need to accept a
+   patch-line version, use `packwiz settings av -a 26.1` (separate entries), not a joined string.
+
+### Still TODO (unchanged from section 10, steps 6-7)
+- **In-world smoke test** (not done here - no NeoForge runtime in the build session): import the
+  export zip into a launcher, confirm it loads, PF is present, and the **Powah -> EE-lane** and AE2
+  hooks behave with `equivalence.enabled = true`.
+- **Do NOT create/upload the CurseForge project** until the smoke test passes - that stays a user
+  decision. Branch `feat/v0.1-mod-list` holds the build; not yet merged to `main`.
